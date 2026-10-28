@@ -6,7 +6,9 @@ Follow the [final project lab](https://vsokolov.org/labs/final-project-lab.html)
 
 ## Who
 
-Alone, or a group of at most three. One person forks. That person adds the other members and `VadimSokolov` as collaborators. On a repository owned by a personal account the role is Write. On the fork, write the names and GitHub usernames under this heading. One person speaks at the presentation. Every member can explain the whole repository.
+Name: Kyle Wong(Solo) BrockLee-droid
+
+I used Claude and Muse to brainstorm possible topics that could relate to me as well as data checks and drafting the proposal. I then reviewed and edited them myself. 
 
 ## Fork
 
