@@ -1,40 +1,29 @@
 # Data
 
-The files the notebook reads are not committed. When the terms let you republish them, they are assets on the GitHub release tagged `data`. The release is public. When the terms let you download the files but not republish them, do not create that release. Write the command that downloads them from the source, and say what it needs (an account, a key in `.env`, a path).
+## Source and terms
 
-`OWNER/REPO` is your fork, the form `username/aii600-final-project`. In the clone, once:
+OpenPowerlifting bulk CSV, snapshot dated 2026-10-24, from the OpenPowerlifting project (https://www.openpowerlifting.org). OpenPowerlifting compiles meet results reported by powerlifting federations. The data are contributed to the public domain (see `LICENSE.txt` inside the zip), so the file is republished on this repository's release tagged `data`.
 
-```bash
-gh repo set-default OWNER/REPO
-```
+This project uses data from the OpenPowerlifting project, https://www.openpowerlifting.org.
 
-Create the release from the project root, after the files are in this folder:
+## File
 
-```bash
-gh release create data data/your-file.csv --repo OWNER/REPO --title "Data" --notes "See data/README.md"
-```
+| File | On the `data` release | SHA-256 |
+|---|---|---|
+| `openpowerlifting-latest.zip` | yes | `26be6b73f4b16ba5f4f8fb568f258d2c5ab165f379aed21e2489af9d0022afe7` |
 
-Add every file the notebook reads. When a file changes:
+The notebook reads the CSV inside the zip directly and does not unzip it. On first run it saves the filtered rows to `data/squat3_room.pkl`, which git ignores.
 
-```bash
-gh release upload data data/your-file.csv --repo OWNER/REPO --clobber
-```
-
-On another machine:
+Download:
 
 ```bash
-gh release download data --dir data --repo OWNER/REPO
+gh release download data --dir data --repo BrockLee-droid/aii600-final-project
+shasum -a 256 data/openpowerlifting-latest.zip
 ```
 
-Record a SHA-256 for each file. Replacing a file with `--clobber` does not show up in git, so update the hash in the same commit:
+## What the notebook uses
 
-```bash
-shasum -a 256 data/your-file.csv
-```
-
-Replace the lines below.
-
-- Source, and whether the terms let you republish the files.
-- File names. On the `data` release, or the command that downloads them from the source.
-- SHA-256 of each file.
-- Unit of observation, sample size, and time span.
+- Unit of observation: one lifter's third squat attempt at one full-power (SBD) meet, raw equipment, after a made second attempt, with a third attempt 0–25% heavier than the second, sex M or F, and a recorded bodyweight: 757,813 attempts, 302,485 lifter names, 1965-09-04 to 2026-10-18.
+- Room left: the lifter's best made raw squat at any earlier meet date, from the same file. 484,979 attempts have one; 456,553 have a second attempt within 80–120% of it.
+- Model rows: those 456,553 attempts with a jump of 4% or more, 258,222 attempts.
+- Failed attempts are stored as negative weights. Not every federation reports attempts, so the sample covers only federations that do.
